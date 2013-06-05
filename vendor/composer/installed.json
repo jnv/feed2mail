@@ -54,5 +54,38 @@
             "feeds",
             "rss"
         ]
+    },
+    {
+        "name": "codegun/phpmailer-lite",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/codegun/phpmailer-lite.git",
+            "reference": "405e345b0407d9ad150a38ff0311a1755a88e1da"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/codegun/phpmailer-lite/zipball/405e345b0407d9ad150a38ff0311a1755a88e1da",
+            "reference": "405e345b0407d9ad150a38ff0311a1755a88e1da",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0.0"
+        },
+        "time": "2012-07-31 12:09:59",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "src/class.phpmailer-lite.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "PHPMailerLite By PHPMailer",
+        "homepage": "https://code.google.com/a/apache-extras.org/p/phpmailer/",
+        "keywords": [
+            "phpmailer"
+        ]
     }
 ]

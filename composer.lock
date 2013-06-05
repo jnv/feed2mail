@@ -3,8 +3,39 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "402117bb61f042ccee731dad46d2cf04",
+    "hash": "6f0e64e732b86b9e85294f98dc44c265",
     "packages": [
+        {
+            "name": "codegun/phpmailer-lite",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codegun/phpmailer-lite.git",
+                "reference": "405e345b0407d9ad150a38ff0311a1755a88e1da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codegun/phpmailer-lite/zipball/405e345b0407d9ad150a38ff0311a1755a88e1da",
+                "reference": "405e345b0407d9ad150a38ff0311a1755a88e1da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/class.phpmailer-lite.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "PHPMailerLite By PHPMailer",
+            "homepage": "https://code.google.com/a/apache-extras.org/p/phpmailer/",
+            "keywords": [
+                "phpmailer"
+            ],
+            "time": "2012-07-31 12:09:59"
+        },
         {
             "name": "simplepie/simplepie",
             "version": "dev-master",
@@ -68,7 +99,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "simplepie/simplepie": 20
+        "simplepie/simplepie": 20,
+        "codegun/phpmailer-lite": 20
     },
     "platform": [
 

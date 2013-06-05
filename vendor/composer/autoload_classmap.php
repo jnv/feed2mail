@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PHPMailerLite' => $vendorDir . '/codegun/phpmailer-lite/src/class.phpmailer-lite.php',
+    'phpmailerException' => $vendorDir . '/codegun/phpmailer-lite/src/class.phpmailer-lite.php',
 );
