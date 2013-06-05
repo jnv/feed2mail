@@ -2,15 +2,61 @@
 require 'vendor/autoload.php';
 require 'config.php';
 
-
-function send_notification($items)
+class FileValue
 {
-    $to = EMAIL_TO;
-    $subject = SUBJECT_PREFIX . ' ' . count($items) . ' new item(s)';
-    $headers = 'From: ';
+    protected $path;
+    public function __construct($path)
+    {
+        $this->path = $path;
+    }
+
+    public function get($default = null)
+    {
+        if(!file_exists($this->path))
+            return $default;
+
+        $content = file_get_contents($this->path);
+        if($content === false)
+            return $default;
+
+        return $content;
+    }
+
+    public function set($value)
+    {
+        file_put_contents($this->path, $value);
+    }
 }
 
+function format_items($items)
+{
+    $ret = '';
+    foreach($items as $item)
+    {
+        $ret .= "<h2><a href='{$item->get_link()}'>{$item->get_title()}</a></h2>\n";
+        $ret .= "<div><strong>{$item->get_date()}</strong></div>\n";
+        $ret .= "<div>{$item->get_description()}</div>\n";
+        $ret .= "<hr>\n";
+    }
+    return "<html><body>\n{$ret}\n</body></html>\n";
+}
 
+function send_notification($body)
+{
+    $subject = SUBJECT_PREFIX . ' ' . count($items) . ' new item(s)';
+
+    $mail = new PHPMailerLite();
+    $mail->IsHTML(true);
+    $mail->SetFrom(EMAIL_FROM);
+
+    $mail->AddAddress(EMAIL_TO);
+    $mail->Subject = $subject;
+
+    $mail->MsgHTML($body);
+    $mail->send();
+}
+
+$lastFetchStore = new FileValue('last_fetch');
 $feed = new SimplePie();
 
 $feed->set_feed_url(FEED_URL);
@@ -20,13 +66,16 @@ $feed->init();
 $items = $feed->get_items();
 
 $newItems = array();
-$lastFetch = time() - INTERVAL;
+// $lastFetch = time() - INTERVAL;
+$lastFetch = (int)$lastFetchStore->get(0);
+echo "Last fetch timestamp: $lastFetch\n";
+$lastFetchStore->set(time());
 foreach ($items as $item)
 {
     if($item->get_date('U') > $lastFetch)
     {
         $newItems[] = $item;
-        echo $item->get_description(), "\n";
+        // echo $item->get_description(), "\n";
     }
     else // Items are already reverse-sorted by time
     {
@@ -41,5 +90,6 @@ echo $count, " new items fetched\n";
 if(!empty($newItems))
 {
     echo "Sending notification\n";
-    send_notification($newItems);
+    send_notification(format_items($newItems));
+    // echo format_items($newItems);
 }
