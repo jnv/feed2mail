@@ -41,9 +41,9 @@ function format_items($items)
     return "<html><body>\n{$ret}\n</body></html>\n";
 }
 
-function send_notification($body)
+function send_notification($body, $count)
 {
-    $subject = SUBJECT_PREFIX . ' ' . count($items) . ' new item(s)';
+    $subject = SUBJECT_PREFIX . ' ' . $count . ' new item(s)';
 
     $mail = new PHPMailerLite();
     $mail->IsHTML(true);
@@ -83,13 +83,13 @@ foreach ($items as $item)
     }
 }
 
-var_dump($feed->get_item_quantity());
+//var_dump($feed->get_item_quantity());
 
 $count = count($newItems);
 echo $count, " new items fetched\n";
 if(!empty($newItems))
 {
     echo "Sending notification\n";
-    send_notification(format_items($newItems));
+    send_notification(format_items($newItems), $count);
     // echo format_items($newItems);
 }
