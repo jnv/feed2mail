@@ -3,7 +3,6 @@
 use \TreasureChest\Instance,
     \TreasureChest\Cache\Filesystem;
 
-\TreasureChest\Autoloader::register();
 class GuidStore
 {
     protected $store;

@@ -2,8 +2,6 @@
 require 'vendor/autoload.php';
 require 'config.php';
 
-\TreasureChest\Autoloader::register();
-
 require 'GuidStore.php';
 use \TreasureChest\Instance,
     \TreasureChest\Cache\Filesystem;
