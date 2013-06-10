@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6f0e64e732b86b9e85294f98dc44c265",
+    "hash": "dce7c004f6c386e77a5c33cf607d218c",
     "packages": [
         {
             "name": "codegun/phpmailer-lite",
@@ -89,6 +89,54 @@
                 "rss"
             ],
             "time": "2013-04-29 06:13:26"
+        },
+        {
+            "name": "treasure-chest/treasure-chest",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:jamesmoss/treasure-chest.git",
+                "reference": "0.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/jamesmoss/treasure-chest/archive/0.1.5.zip",
+                "reference": "0.1.5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "ext-apc": "Install to use the APC datastore",
+                "ext-memcache": "Install to use the memcached datastore"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "TreasureChest": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Moss",
+                    "email": "email@jamesmoss.co.uk",
+                    "homepage": "http://jamesmoss.co.uk"
+                }
+            ],
+            "description": "A simple key/value store with namespace support and backends for memcached, apc, and more.",
+            "homepage": "http://github.com/jamesmoss/treasure-chest",
+            "keywords": [
+                "apc",
+                "cache",
+                "caching",
+                "memcached"
+            ],
+            "time": "2013-01-25 17:27:49"
         }
     ],
     "packages-dev": [

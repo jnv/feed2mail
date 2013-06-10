@@ -1,6 +1,7 @@
 {
     "require": {
         "simplepie/simplepie": "dev-master",
-        "codegun/phpmailer-lite": "dev-master"
+        "codegun/phpmailer-lite": "dev-master",
+        "treasure-chest/treasure-chest": "0.1.5"
     }
 }
