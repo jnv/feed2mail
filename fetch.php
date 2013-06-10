@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+require 'vendor/simplepie.php';
 require 'config.php';
 
 require 'GuidStore.php';
