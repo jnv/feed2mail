@@ -2,31 +2,12 @@
 require 'vendor/autoload.php';
 require 'config.php';
 
-class FileValue
-{
-    protected $path;
-    public function __construct($path)
-    {
-        $this->path = $path;
-    }
+\TreasureChest\Autoloader::register();
 
-    public function get($default = null)
-    {
-        if(!file_exists($this->path))
-            return $default;
+require 'GuidStore.php';
+use \TreasureChest\Instance,
+    \TreasureChest\Cache\Filesystem;
 
-        $content = file_get_contents($this->path);
-        if($content === false)
-            return $default;
-
-        return $content;
-    }
-
-    public function set($value)
-    {
-        file_put_contents($this->path, $value);
-    }
-}
 
 function format_items($items)
 {
@@ -56,7 +37,8 @@ function send_notification($body, $count)
     $mail->send();
 }
 
-$lastFetchStore = new FileValue('last_fetch');
+$store = new \TreasureChest\Instance(new \TreasureChest\Cache\Filesystem(STORE_PATH));
+$guidStore = new GuidStore($store);
 $feed = new SimplePie();
 
 $feed->set_feed_url(FEED_URL);
@@ -66,15 +48,19 @@ $feed->init();
 $items = $feed->get_items();
 
 $newItems = array();
+$newGuids = array();
 // $lastFetch = time() - INTERVAL;
-$lastFetch = (int)$lastFetchStore->get(0);
+
+$lastFetch = (int)$store->fetch('last_fetch'); // will convert FALSE to 0
 echo "Last fetch timestamp: $lastFetch\n";
-$lastFetchStore->set(time());
+$store->store('last_fetch', time());
 foreach ($items as $item)
 {
     if($item->get_date('U') > $lastFetch)
     {
-        $newItems[] = $item;
+        $id = $item->get_id(true); // use hash
+        $newItems[$id] = $item;
+        $newGuids[] = $id;
         // echo $item->get_description(), "\n";
     }
     else // Items are already reverse-sorted by time
@@ -83,10 +69,19 @@ foreach ($items as $item)
     }
 }
 
-//var_dump($feed->get_item_quantity());
-
 $count = count($newItems);
 echo $count, " new items fetched\n";
+
+// Remove previously detected GUIDs
+$newGuids = $guidStore->diff($newGuids);
+$count = count($newGuids);
+echo $count, " items left after filtering out\n";
+
+// Keep only items which were not detected yet
+$newItems = array_intersect_key($newItems, array_flip($newGuids));
+
+$guidStore->add_guids($newGuids);
+
 if(!empty($newItems))
 {
     echo "Sending notification\n";
