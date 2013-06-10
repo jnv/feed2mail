@@ -1,8 +1,5 @@
 <?php
 
-use \TreasureChest\Instance,
-    \TreasureChest\Cache\Filesystem;
-
 class GuidStore
 {
     protected $store;
