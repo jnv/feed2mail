@@ -31,7 +31,7 @@ class GuidStore
      */
     public function diff($guids)
     {
-        return array_diff($this->guids, $guids);
+        return array_diff($guids, $this->guids);
     }
 
     public function add_guids($guids)
